@@ -1,39 +1,31 @@
 [package]
-name = "template-rs"
-version = "0.0.0"
-edition = "2021"
-repository = "https://github.com/al8n/template-rs"
-homepage = "https://github.com/al8n/template-rs"
-documentation = "https://docs.rs/template-rs"
-description = "A template for creating Rust open-source repo on GitHub"
+name = "circularbuf"
+version = "0.1.0"
+edition = "2024"
+repository = "https://github.com/al8n/circularbuf"
+homepage = "https://github.com/al8n/circularbuf"
+documentation = "https://docs.rs/circularbuf"
+description = "Rust fixed size circular (ring) buffer"
 license = "MIT OR Apache-2.0"
-rust-version = "1.73"
-
-[[bench]]
-path = "benches/foo.rs"
-name = "foo"
-harness = false
+rust-version = "1.85.0"
+categories = ["no-std", "data-structures"]
+keywords = ["circbuf", "ring"]
 
 [features]
 default = ["std"]
 alloc = []
 std = []
+future = ["futures-io/std", "std"]
+tokio = ["dep:tokio", "std"]
 
 [dependencies]
 
-[dev-dependencies]
-criterion = "0.5"
-tempfile = "3"
+futures-io = { version = "0.3", optional = true, default-features = false }
+tokio = { version = "1", optional = true, default-features = false }
 
-[profile.bench]
-opt-level = 3
-debug = false
-codegen-units = 1
-lto = 'thin'
-incremental = false
-debug-assertions = false
-overflow-checks = false
-rpath = false
+[dev-dependencies]
+tokio = { version = "1", features = ["full"] }
+futures-util = { version = "0.3", features = ["io"] }
 
 [package.metadata.docs.rs]
 all-features = true
